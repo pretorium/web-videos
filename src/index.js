@@ -1,5 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import App from './routes/app';
+import reducer from './reducers';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const initialState = require('../initialState.json');
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__();
+
+const store = createStore(
+  reducer,
+  initialState,
+  composeEnhancers,
+);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app'),
+);
